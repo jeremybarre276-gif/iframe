@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Muraflex Facts</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
 
     body {
       background: transparent;
@@ -85,28 +89,6 @@
       opacity: 0;
       transform: translateY(-8px);
     }
-
-    .indicator {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 20px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transition: all 0.4s ease;
-      cursor: pointer;
-    }
-
-    .dot.active {
-      background: #808080;
-      width: 24px;
-      border-radius: 4px;
-    }
   </style>
 </head>
 <body>
@@ -122,7 +104,6 @@
         <div class="fact"><div class="fact-content">Loading...</div></div>
       </div>
     </div>
-    <div class="indicator" id="indicator"></div>
   </div>
 
   <script>
@@ -152,8 +133,6 @@
         factDiv.innerHTML = `<div class="fact-content">${facts[factIndices[idx]]}</div>`;
         factDiv.classList.add('active');
       });
-
-      updateIndicators();
     }
 
     function rotateBlock(blockIdx) {
@@ -168,32 +147,7 @@
         factDiv.innerHTML = `<div class="fact-content">${facts[factIndices[blockIdx]]}</div>`;
         factDiv.classList.remove('fade-out');
         factDiv.classList.add('active');
-        updateIndicators();
       }, 800);
-    }
-
-    function updateIndicators() {
-      const indicatorDiv = document.getElementById('indicator');
-      indicatorDiv.innerHTML = '';
-      
-      facts.forEach((_, idx) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        if (factIndices.includes(idx)) {
-          dot.classList.add('active');
-        }
-        dot.addEventListener('click', () => {
-          const blockIdx = factIndices.indexOf(idx);
-          if (blockIdx !== -1) {
-            factIndices[blockIdx] = idx;
-            const block = document.getElementById(`block-${blockIdx}`);
-            const factDiv = block.querySelector('.fact');
-            factDiv.innerHTML = `<div class="fact-content">${facts[idx]}</div>`;
-            updateIndicators();
-          }
-        });
-        indicatorDiv.appendChild(dot);
-      });
     }
 
     function startRotation() {
